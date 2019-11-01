@@ -5,7 +5,6 @@ list = ["alex", "peter", "smith"]
 i = 0
 
 while True:
-    i = i%3
     print(list[i])
-    i = i+1
+    i = (i+1)%3
     time.sleep(0.5)
