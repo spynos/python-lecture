@@ -2,14 +2,12 @@ import turtle
 import time
 import random
 
-game_over = False
-
 # Screen setting
 win = turtle.Screen()
-win.title("SNAKE")
-win.bgcolor("black")
-win.setup(width=800, height=600)
-win.tracer(0)
+win.title("SNAKE") #창제목
+win.bgcolor("black") #배경색상
+win.setup(width=600, height=600)
+win.tracer(0) #화면에 그림 그려지는 과정이 보이지 않도록
 
 # Make snake's head
 head = turtle.Turtle()
@@ -63,15 +61,17 @@ def game_over():
     ending.color("red")
     ending.hideturtle()
     ending.write("Game Over", align="center", font=("Arial", 50))
-    del head
+    time.sleep(3)
+    win.bye()
 
-# Score
+
+# Score board
 score = 0
 board = turtle.Turtle()
 board.penup()
 board.color("white")
 board.hideturtle()
-board.goto(200, 270)
+board.goto(0, 270)
 
 # Main game loop
 while True:
@@ -79,20 +79,20 @@ while True:
     time.sleep(0.1)
     win.update()
     board.clear()
-    board.write("score: {}".format(score), font = ("Arial", 20))
+    board.write("score: {}".format(score), align="center", font = ("Arial", 20))
 
     # Check for head collision
     for segment in segments:
         if segment.distance(head) < 15:
             game_over()
     
-    #Make new food after eat!
+    # Make new food after eat!
     if head.distance(food) < 20:
-        x = random.randint(-390, 390)
+        x = random.randint(-290, 290)
         y = random.randint(-290, 290)
-        food.goto(x, y)
-        add_segment()
-        score = score + 20
+        food.goto(x, y) #화면 중 랜덤 위치에 뿌리기
+        add_segment() #먹이 먹을 때마다 몸통 한칸 추가
+        score = score + 20 #먹이 먹을 때마다 점수 20점
 
     # Move segments
     for i in range(len(segments) - 1, 0, -1):
